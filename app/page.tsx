@@ -46,7 +46,7 @@ export default function HomePage() {
       setPhoto({ ...prepared, url: URL.createObjectURL(prepared.blob) });
       setView({ step: "preview" });
     } catch (err) {
-      setPickError(err instanceof ImageError ? err.message : "Não conseguimos abrir essa imagem.");
+      setPickError(err instanceof ImageError ? err.message : "A gente não conseguiu abrir essa foto.");
       setView({ step: "pick" });
     } finally {
       setPreparing(false);

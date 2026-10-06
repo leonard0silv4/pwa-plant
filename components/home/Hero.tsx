@@ -94,7 +94,7 @@ export function Hero({
           className="pressable flex h-12 items-center gap-2 rounded-full px-5 text-[0.95rem] font-medium text-ink hover:bg-ink/[0.04] disabled:opacity-60"
         >
           <ImageIcon className="size-[1.1rem] text-ink-soft" strokeWidth={1.8} />
-          Escolher da galeria
+          Usar uma foto do celular
         </button>
       </div>
 

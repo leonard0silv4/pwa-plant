@@ -24,7 +24,7 @@ export function SavedAnalysis() {
   if (!id || entry === null) {
     return (
       <main className="flex-1">
-        <PageHeader eyebrow="Análise" title="Não achamos essa planta">
+        <PageHeader eyebrow="Sua planta" title="A gente não achou essa planta">
           <p>Ela pode ter sido apagada deste celular.</p>
         </PageHeader>
         <div className="px-6">

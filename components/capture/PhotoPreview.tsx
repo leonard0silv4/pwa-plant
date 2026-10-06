@@ -29,8 +29,8 @@ export function PhotoPreview({
           <div className="flex w-full items-start gap-3 rounded-2xl bg-card px-4 py-3.5 text-sm text-ink-soft">
             <WifiOff className="mt-0.5 size-4 shrink-0 text-clay" />
             <p>
-              <span className="font-medium text-ink">Você está sem internet.</span> Conecte-se para analisar uma
-              planta nova.
+              <span className="font-medium text-ink">Você está sem internet.</span> Conecte-se à internet para ver
+              uma planta nova.
             </p>
           </div>
         ) : (

@@ -60,12 +60,12 @@ function Section({
 }
 
 const CARE_ITEMS: { key: keyof PlantAnalysis["care"]; label: string; icon: LucideIcon; tint: string }[] = [
-  { key: "light", label: "Luz", icon: Sun, tint: "bg-[#f4ead0] text-[#7a5a14]" },
-  { key: "watering", label: "Rega", icon: Droplets, tint: "bg-[#dfe8e6] text-[#285456]" },
-  { key: "soil", label: "Solo", icon: Shovel, tint: "bg-[#ece2d6] text-[#6c4a2f]" },
-  { key: "temperature", label: "Temperatura", icon: Thermometer, tint: "bg-[#f2dfd4] text-[#7d3d22]" },
-  { key: "humidity", label: "Umidade", icon: Wind, tint: "bg-[#e3e6ee] text-[#3d4a63]" },
-  { key: "fertilization", label: "Adubação", icon: Sprout, tint: "bg-[#e4ead5] text-moss-deep" },
+  { key: "light", label: "Sol e luz", icon: Sun, tint: "bg-[#f4ead0] text-[#7a5a14]" },
+  { key: "watering", label: "Água", icon: Droplets, tint: "bg-[#dfe8e6] text-[#285456]" },
+  { key: "soil", label: "Terra", icon: Shovel, tint: "bg-[#ece2d6] text-[#6c4a2f]" },
+  { key: "temperature", label: "Calor e frio", icon: Thermometer, tint: "bg-[#f2dfd4] text-[#7d3d22]" },
+  { key: "humidity", label: "Umidade do ar", icon: Wind, tint: "bg-[#e3e6ee] text-[#3d4a63]" },
+  { key: "fertilization", label: "Adubo", icon: Sprout, tint: "bg-[#e4ead5] text-moss-deep" },
 ];
 
 export function AnalysisResult({
@@ -117,11 +117,11 @@ export function AnalysisResult({
               {id.scientificName && id.commonName && (
                 <p className="font-display mt-1.5 text-lg text-ink-soft italic">{id.scientificName}</p>
               )}
-              {id.family && <p className="label-mono mt-3 text-ink-soft/70">Família {id.family}</p>}
+              {id.family && <p className="label-mono mt-3 text-ink-soft/70">Da família {id.family}</p>}
             </>
           ) : (
             <h1 className="font-display text-[1.9rem] leading-tight font-[430] text-balance">
-              Não conseguimos identificar com segurança
+              Não deu para ter certeza de qual planta é
             </h1>
           )}
 
@@ -233,7 +233,7 @@ export function AnalysisResult({
                   <div className="min-w-0 flex-1 pt-1">
                     <div className="flex items-start justify-between gap-3">
                       <p className="font-medium leading-snug text-ink">{r.title}</p>
-                      {r.priority === "high" && <LevelPill level="high" label={PRIORITY_LABEL.high} prefix="Prioridade" />}
+                      {r.priority === "high" && <LevelPill level="high" label={PRIORITY_LABEL.high} prefix="Fazer" />}
                     </div>
                     <p className="mt-1 text-[0.93rem] leading-relaxed text-ink-soft">{r.description}</p>
                   </div>
@@ -252,7 +252,7 @@ export function AnalysisResult({
               </Callout>
             )}
             {analysis.warning && (
-              <Callout icon={AlertTriangle} title="Atenção">
+              <Callout icon={AlertTriangle} title="Fique de olho">
                 {analysis.warning}
               </Callout>
             )}
@@ -261,10 +261,10 @@ export function AnalysisResult({
 
         {/* Follow-up questions (interactive answers will come later) */}
         {analysis.needsMoreInformation && analysis.followUpQuestions.length > 0 && (
-          <Section title="Precisamos saber mais 🌱" index={i++}>
+          <Section title="Conte mais sobre ela 🌱" index={i++}>
             <div className="space-y-3 rounded-[1.75rem] bg-[#e9ecdc] p-5">
               <p className="text-[0.93rem] leading-relaxed text-ink-soft">
-                Só a foto não conta tudo. Pense nestas perguntas — elas ajudam a descobrir o que está acontecendo:
+                Só a foto não mostra tudo. Pense nestas perguntas — elas ajudam a descobrir o que está acontecendo:
               </p>
               {analysis.followUpQuestions.map((q, k) => (
                 <div key={k} className="rounded-2xl bg-card/80 p-4">
@@ -308,8 +308,8 @@ export function AnalysisResult({
         )}
 
         <p className="rise-in px-2 text-center text-[0.8rem] leading-relaxed text-ink-soft/80" style={stagger(i++)}>
-          A inteligência artificial olhou só a foto e pode errar. Se a planta parecer doente, peça ajuda a um adulto
-          ou a um especialista em plantas.
+          A IA só viu a foto e pode errar. Se a planta parecer doente, chame um adulto ou alguém que entende de
+          plantas.
         </p>
       </div>
     </article>

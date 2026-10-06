@@ -10,7 +10,7 @@ const MESSAGES = [
   "Procurando pistas nas folhas…",
   "Comparando com outras plantas…",
   "Vendo se ela está saudável…",
-  "Separando dicas de cuidado…",
+  "Juntando dicas para cuidar dela…",
 ];
 
 // Decorative markers only — they do NOT correspond to anything the model detected.
@@ -44,7 +44,7 @@ export function PlantScanner({
   return (
     <main className="flex flex-1 flex-col px-5 pt-[max(1.5rem,calc(env(safe-area-inset-top)+0.75rem))]">
       <div className="flex items-baseline justify-between px-1">
-        <p className="label-mono text-ink-soft">Analisando sua planta</p>
+        <p className="label-mono text-ink-soft">Olhando sua planta</p>
         <span className="label-mono flex items-center gap-1.5 text-moss" aria-hidden>
           <span className={cn("size-1.5 rounded-full bg-moss", phase === "scanning" && styles.blink)} />
           IA
@@ -121,7 +121,7 @@ export function PlantScanner({
             />
           ))}
         </div>
-        <p className="mt-3 text-sm text-ink-soft">Só um pouquinho…</p>
+        <p className="mt-3 text-sm text-ink-soft">Leva só alguns segundos</p>
       </div>
     </main>
   );

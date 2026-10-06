@@ -9,7 +9,7 @@ const items = [
   { href: "/", label: "Identificar", icon: Sprout, match: (p: string) => p === "/" },
   {
     href: "/history",
-    label: "Histórico",
+    label: "Minhas plantas",
     icon: History,
     match: (p: string) => p.startsWith("/history") || p.startsWith("/analysis"),
   },

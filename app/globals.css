@@ -296,10 +296,12 @@
   }
 }
 
-/* Sway starts once the sprig has finished drawing itself in. */
+/* Sway eases in while the last strokes draw. `backwards` holds the first keyframe during the
+   delay, so the motion starts from rest instead of snapping to -1.2deg. */
 .sway {
   transform-origin: 50% 100%;
-  animation: sway 7s ease-in-out 2.6s infinite;
+  animation: sway 7s ease-in-out 1.6s infinite backwards;
+  will-change: transform;
 }
 
 .drift {

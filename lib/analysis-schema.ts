@@ -23,7 +23,7 @@ export const plantAnalysisSchema = z.object({
       .describe("Espécies parecidas quando há dúvida"),
   }),
 
-  description: z.string().describe("2 a 3 frases sobre a planta"),
+  description: z.string().describe("2 a 3 frases simples sobre a planta, para crianças"),
   characteristics: z.array(z.string()).max(5),
 
   health: z.object({

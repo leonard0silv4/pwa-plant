@@ -23,11 +23,11 @@ export default function HistoryPage() {
 
   return (
     <main className="flex-1">
-      <title>Histórico · FloraScan</title>
-      <PageHeader eyebrow="Histórico" title="Minhas plantas">
+      <title>Minhas plantas · FloraScan</title>
+      <PageHeader eyebrow="Seu jardim" title="Minhas plantas">
         {items && items.length > 0 && (
           <p>
-            {items.length} {items.length === 1 ? "planta analisada" : "plantas analisadas"}, guardadas só neste
+            {items.length} {items.length === 1 ? "planta salva" : "plantas salvas"}, guardadas só neste
             celular.
           </p>
         )}
@@ -85,7 +85,7 @@ function HistoryRow({ item, index, onDelete }: { item: HistorySummary; index: nu
       <button
         type="button"
         onClick={onDelete}
-        aria-label={`Apagar análise de ${name}`}
+        aria-label={`Apagar ${name}`}
         className="absolute top-2 right-2 flex size-9 items-center justify-center rounded-full text-ink-soft/50 transition-colors hover:bg-paper-deep hover:text-clay"
       >
         <Trash2 className="size-4" />

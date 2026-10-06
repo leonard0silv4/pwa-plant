@@ -6,7 +6,7 @@ import type { AnalyzeErrorCode } from "@/lib/analysis-schema";
 
 const COPY: Record<AnalyzeErrorCode, { title: string; body: string; tips?: string[] }> = {
   not_plant: {
-    title: "Não achamos uma planta nessa foto 🌱",
+    title: "A gente não achou uma planta nessa foto 🌱",
     body: "Tente tirar foto de:",
     tips: ["folhas", "caule", "flores", "a planta inteira"],
   },
@@ -16,8 +16,8 @@ const COPY: Record<AnalyzeErrorCode, { title: string; body: string; tips?: strin
     tips: ["mostrar as folhas", "chegar mais perto", "fundo sem bagunça"],
   },
   invalid_input: {
-    title: "Não conseguimos abrir essa foto.",
-    body: "Tente outra foto (do tipo JPEG, PNG ou WebP).",
+    title: "A gente não conseguiu abrir essa foto.",
+    body: "Tente outra foto. Essa o app não consegue abrir.",
   },
   too_large: {
     title: "Essa foto é grande demais.",
@@ -25,7 +25,7 @@ const COPY: Record<AnalyzeErrorCode, { title: string; body: string; tips?: strin
   },
   rate_limited: {
     title: "Ufa, foram muitas plantas seguidas!",
-    body: "Para o app continuar de graça, cada pessoa pode analisar algumas plantas por hora. Espere um pouco e tente de novo.",
+    body: "Para o app continuar de graça, cada pessoa pode ver algumas plantas por hora. Espere um pouco e tente de novo.",
   },
   timeout: {
     title: "Demorou mais do que devia.",

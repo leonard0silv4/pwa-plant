@@ -32,7 +32,7 @@ function Section({
 export default function AboutPage() {
   return (
     <main className="flex-1">
-      <PageHeader eyebrow="Sobre o projeto" title={<>Um caderno de campo, <em className="text-moss">com IA.</em></>}>
+      <PageHeader eyebrow="Sobre o projeto" title={<>Seu guia de plantas, <em className="text-moss">com IA.</em></>}>
         <p>
           O FloraScan é um app para aprender sobre plantas. Ele usa inteligência artificial (um programa de computador
           que aprendeu a reconhecer imagens) para descobrir que planta é e como cuidar dela.
@@ -42,7 +42,7 @@ export default function AboutPage() {
       <div className="space-y-4 px-5">
         <Section index={0} icon={<Sparkles className="size-4" />} title="Como funciona">
           <p>
-            Você tira a foto. Ela fica menor no seu celular e vai para uma inteligência artificial, que olha a planta e
+            Você tira a foto. O app deixa a foto mais leve e manda para a inteligência artificial, que olha a planta e
             conta o que viu: o nome provável, como cuidar e se ela parece bem.
           </p>
           <p>Ela só enxerga o que aparece na foto, então às vezes pode errar.</p>
@@ -61,7 +61,7 @@ export default function AboutPage() {
 
         <Section index={2} icon={<ShieldCheck className="size-4" />} title="Sua foto é só sua">
           <p>
-            A gente não guarda suas fotos. A imagem é enviada à OpenAI só para ser analisada e depois é apagada.
+            A gente não guarda suas fotos. A foto vai para a OpenAI (a empresa que faz a IA) só para ela olhar, e depois é apagada.
           </p>
           <p>Não precisa criar conta nem fazer cadastro.</p>
         </Section>
@@ -77,8 +77,8 @@ export default function AboutPage() {
           <p>Use um lugar claro, chegue perto e mostre bem as folhas. Se tiver uma parte machucada, tire foto dela de perto.</p>
         </Section>
 
-        <p className="px-2 pt-4 text-center text-sm text-ink-soft">Desenvolvido para a Feira de Ciências do Colégio MAF.</p>
-        <p className="label-mono px-2 pt-2 pb-2 text-center text-ink-soft/60">Gratuito · Educativo · Sem anúncios</p>
+        <p className="px-2 pt-4 text-center text-sm text-ink-soft">Feito para a Feira de Ciências do Colégio MAF.</p>
+        <p className="label-mono px-2 pt-2 pb-2 text-center text-ink-soft/60">De graça · Para aprender · Sem propaganda</p>
       </div>
     </main>
   );
