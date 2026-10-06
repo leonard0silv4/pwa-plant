@@ -82,7 +82,7 @@ export function AnalysisResult({
           <img src={photoUrl} alt={id.commonName || "Foto da planta"} className="aspect-[4/5] max-h-[68dvh] w-full object-cover" />
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(18_24_19/0.35),transparent_22%,transparent_60%,rgb(18_24_19/0.55))]" />
           {date && (
-            <p className="label-mono absolute top-[max(1.25rem,env(safe-area-inset-top))] left-5 text-paper/85">
+            <p className="label-mono absolute top-[max(1.6rem,calc(env(safe-area-inset-top)+0.6rem))] right-5 text-paper/90">
               {date.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })}
             </p>
           )}

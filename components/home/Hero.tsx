@@ -29,7 +29,7 @@ export function Hero({
         onClick={onCamera}
         disabled={disabled}
         aria-label="Tirar uma foto da planta"
-        className="pressable group rise-in relative mx-auto mt-8 aspect-[4/5] w-[78%] max-w-[19rem] overflow-hidden rounded-[50%_50%_2.25rem_2.25rem/40%_40%_2.25rem_2.25rem] bg-paper-deep ring-1 ring-ink/[0.05] disabled:opacity-60"
+        className="pressable group rise-in relative mx-auto mt-6 aspect-[4/5] h-[clamp(10rem,33dvh,22rem)] overflow-hidden rounded-[50%_50%_2.25rem_2.25rem/40%_40%_2.25rem_2.25rem] bg-paper-deep ring-1 ring-ink/[0.05] disabled:opacity-60"
         style={{ "--i": 1 } as CSSProperties}
       >
         <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_100%,rgb(154_174_143/0.35),transparent_70%)]" />
@@ -37,15 +37,15 @@ export function Hero({
         <ViewfinderTicks className="text-ink/25" />
       </button>
 
-      <div className="mt-9 text-center">
+      <div className="mt-7 text-center">
         <h1
-          className="font-display rise-in text-[2.6rem] leading-[1] font-[400] tracking-[-0.025em] text-ink"
+          className="font-display rise-in text-[clamp(2.1rem,9vw,2.6rem)] leading-[1] font-[400] tracking-[-0.025em] text-ink"
           style={{ "--i": 2 } as CSSProperties}
         >
           Conheça sua <em className="font-[380] text-moss">planta</em>
         </h1>
         <p
-          className="rise-in mx-auto mt-4 max-w-[19rem] text-[0.98rem] leading-relaxed text-ink-soft"
+          className="rise-in mx-auto mt-3 max-w-[19rem] text-[0.95rem] leading-relaxed text-ink-soft"
           style={{ "--i": 3 } as CSSProperties}
         >
           Fotografe uma planta para descobrir a espécie, os cuidados e possíveis sinais de que ela precisa de
@@ -53,7 +53,7 @@ export function Hero({
         </p>
       </div>
 
-      <div className="rise-in mt-8 flex flex-col items-center gap-2" style={{ "--i": 4 } as CSSProperties}>
+      <div className="rise-in mt-6 flex flex-col items-center gap-1" style={{ "--i": 4 } as CSSProperties}>
         <button
           type="button"
           onClick={onCamera}

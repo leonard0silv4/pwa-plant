@@ -43,7 +43,7 @@ export function SavedAnalysis() {
       <Link
         href="/history"
         aria-label="Voltar para o histórico"
-        className="pressable absolute top-[max(1rem,env(safe-area-inset-top))] right-4 z-10 flex size-10 items-center justify-center rounded-full bg-paper/85 text-ink backdrop-blur"
+        className="pressable absolute top-[max(1rem,env(safe-area-inset-top))] left-4 z-10 flex size-10 items-center justify-center rounded-full bg-paper/85 text-ink backdrop-blur"
       >
         <ArrowLeft className="size-[1.1rem]" />
       </Link>
