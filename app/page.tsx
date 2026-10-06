@@ -11,6 +11,7 @@ import { AnalysisResult } from "@/components/result/AnalysisResult";
 import { PlantScanner, type ScannerPhase } from "@/components/scanner/PlantScanner";
 import type { AnalyzeErrorCode, PlantAnalysis } from "@/lib/analysis-schema";
 import { AnalyzeError, analyzePlant } from "@/lib/analyze-client";
+import { saveAnalysis } from "@/lib/history";
 import { ImageError, prepareImage, type PreparedImage } from "@/lib/image";
 import { useOnline } from "@/lib/use-online";
 
@@ -62,6 +63,8 @@ export default function HomePage() {
     try {
       const analysis = await analyzePlant(photo.blob, controller.signal);
       const identified = Boolean(analysis.identification.commonName);
+      // History is a nice-to-have: never block the result on storage errors (e.g. private mode).
+      saveAnalysis(analysis, photo.thumbnail).catch(() => {});
 
       // Scanner → slows and fades → photo returns to normal → short confirmation → result.
       const fast = reducedMotion();

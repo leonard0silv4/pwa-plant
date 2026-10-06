@@ -7,7 +7,8 @@ export const MAX_INPUT_BYTES = 25 * 1024 * 1024;
 export const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
 
 const ANALYSIS_MAX_SIDE = 1280;
-const THUMB_MAX_SIDE = 360;
+// Big enough for the saved result hero, small enough (~50KB) for local storage.
+const THUMB_MAX_SIDE = 720;
 
 export class ImageError extends Error {
   constructor(
@@ -80,7 +81,7 @@ export async function prepareImage(file: File): Promise<PreparedImage> {
   const bitmap = await decode(file);
   try {
     const blob = await encode(bitmap, ANALYSIS_MAX_SIDE, 0.82);
-    const thumbnail = await encode(bitmap, THUMB_MAX_SIDE, 0.72);
+    const thumbnail = await encode(bitmap, THUMB_MAX_SIDE, 0.7);
     if (blob.size > MAX_UPLOAD_BYTES) {
       throw new ImageError("too_large", "Essa imagem é grande demais. Tente outra foto.");
     }
