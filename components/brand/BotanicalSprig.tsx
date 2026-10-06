@@ -1,7 +1,8 @@
-import type { CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 
-const paths = [
+// Stem, four leaves (outline + midrib) and a bud, merged into one path so the browser
+// rasterizes a single shape instead of animating ten.
+const d = [
   "M100 250 C 98 200, 104 150, 100 60",
   "M101 205 C 125 195, 150 175, 158 150 C 135 152, 112 172, 101 205",
   "M101 205 Q 128 178, 158 150",
@@ -12,24 +13,22 @@ const paths = [
   "M100 105 C 82 96, 66 78, 62 58 C 80 62, 96 78, 100 105",
   "M100 105 Q 80 82, 62 58",
   "M100 60 C 92 48, 94 32, 100 22 C 106 32, 108 48, 100 60",
-];
+].join(" ");
 
-/** Hand-drawn style sprig, stroked in on mount. Purely decorative. */
+/** Hand-drawn style sprig that fades up on mount. Purely decorative. */
 export function BotanicalSprig({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 200 260"
       aria-hidden
-      className={cn("draw-line", className)}
+      className={cn("sprig-in", className)}
       fill="none"
       stroke="currentColor"
       strokeWidth="1.15"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      {paths.map((d, i) => (
-        <path key={i} d={d} pathLength={1} style={{ "--d": i * 140 } as CSSProperties} />
-      ))}
+      <path d={d} />
     </svg>
   );
 }
