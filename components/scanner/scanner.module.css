@@ -1,0 +1,256 @@
+/*
+ * Scanner effect. Everything animates via transform/opacity only (GPU-friendly).
+ * Phases: scanning → finishing (beam slows and fades, photo returns to normal) → done.
+ */
+
+.frame {
+  isolation: isolate;
+  animation: frame-in 520ms var(--ease-organic) both;
+}
+
+.photo {
+  transition: filter 700ms var(--ease-organic), transform 900ms var(--ease-organic);
+  filter: saturate(0.88) brightness(0.94);
+  transform: scale(1.015);
+}
+
+.frame[data-phase="finishing"] .photo,
+.frame[data-phase="done"] .photo {
+  filter: none;
+  transform: none;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: opacity 600ms var(--ease-organic);
+}
+
+.frame[data-phase="done"] .overlay {
+  opacity: 0;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 45%, transparent 55%, rgb(18 24 19 / 0.45) 100%),
+    linear-gradient(180deg, rgb(18 24 19 / 0.18), transparent 30%, transparent 70%, rgb(18 24 19 / 0.22));
+}
+
+/* Faint field-notebook grid, masked to the centre. */
+.grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image:
+    linear-gradient(rgb(244 240 230 / 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(244 240 230 / 0.5) 1px, transparent 1px);
+  background-size: 2.75rem 2.75rem;
+  mask-image: radial-gradient(70% 60% at 50% 50%, black, transparent);
+  transition: opacity 500ms;
+}
+
+.frame[data-phase="finishing"] .grid {
+  opacity: 0;
+}
+
+/* The beam is a tall element translated through the frame; the soft light trails the line. */
+.beam {
+  position: absolute;
+  inset-inline: 0;
+  top: -30%;
+  height: 30%;
+  background: linear-gradient(180deg, transparent, rgb(228 236 180 / 0.08) 60%, rgb(228 236 180 / 0.24));
+  animation: sweep 3.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
+.line {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #eef3c9 18%, #fbfdf0 50%, #eef3c9 82%, transparent);
+  box-shadow:
+    0 0 10px 1px rgb(228 236 180 / 0.55),
+    0 0 28px 4px rgb(228 236 180 / 0.2);
+}
+
+.frame[data-phase="finishing"] .beam,
+.frame[data-phase="done"] .beam {
+  animation-duration: 5.5s;
+  opacity: 0;
+  transition: opacity 650ms var(--ease-organic);
+}
+
+@keyframes sweep {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(433%);
+    opacity: 0;
+  }
+}
+
+/* Decorative markers: soft ring + dot that appear then pulse gently. */
+.marker {
+  position: absolute;
+  width: 1.6rem;
+  height: 1.6rem;
+  margin: -0.8rem 0 0 -0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgb(244 240 230 / 0.75);
+  opacity: 0;
+  transform: scale(0.4);
+  animation:
+    marker-in 600ms var(--ease-organic) var(--delay) forwards,
+    marker-pulse 2.4s ease-in-out calc(var(--delay) + 600ms) infinite;
+}
+
+.marker::after {
+  content: "";
+  position: absolute;
+  inset: 50%;
+  width: 4px;
+  height: 4px;
+  margin: -2px;
+  border-radius: 999px;
+  background: #f4f0e6;
+}
+
+.frame[data-phase="finishing"] .marker {
+  animation-play-state: paused;
+  opacity: 0;
+  transition: opacity 400ms;
+}
+
+@keyframes marker-in {
+  to {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+}
+
+@keyframes marker-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(244 240 230 / 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgb(244 240 230 / 0);
+  }
+}
+
+.corner {
+  position: absolute;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-color: rgb(244 240 230 / 0.7);
+  border-style: solid;
+  border-width: 0;
+}
+.tl {
+  top: 1rem;
+  left: 1rem;
+  border-top-width: 1.5px;
+  border-left-width: 1.5px;
+  border-top-left-radius: 0.5rem;
+}
+.tr {
+  top: 1rem;
+  right: 1rem;
+  border-top-width: 1.5px;
+  border-right-width: 1.5px;
+  border-top-right-radius: 0.5rem;
+}
+.bl {
+  bottom: 1rem;
+  left: 1rem;
+  border-bottom-width: 1.5px;
+  border-left-width: 1.5px;
+  border-bottom-left-radius: 0.5rem;
+}
+.br {
+  bottom: 1rem;
+  right: 1rem;
+  border-bottom-width: 1.5px;
+  border-right-width: 1.5px;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.done {
+  position: absolute;
+  inset: auto 0 1.4rem;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+  transition:
+    opacity 350ms var(--ease-organic),
+    transform 450ms var(--ease-organic);
+}
+
+.frame[data-phase="done"] .done {
+  opacity: 1;
+  transform: none;
+}
+
+.blink {
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.message {
+  animation: message-in 520ms var(--ease-organic) both;
+}
+
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(3px);
+  }
+}
+
+@keyframes frame-in {
+  from {
+    transform: scale(0.98);
+  }
+}
+
+/* Reduced motion: no continuous movement — a static, softly lit band instead. */
+@media (prefers-reduced-motion: reduce) {
+  .beam {
+    animation: none;
+    top: 32%;
+    opacity: 1;
+  }
+  .marker {
+    animation: none;
+    opacity: 0.8;
+    transform: none;
+  }
+  .blink,
+  .message,
+  .frame {
+    animation: none;
+  }
+  .photo {
+    transform: none;
+  }
+}
