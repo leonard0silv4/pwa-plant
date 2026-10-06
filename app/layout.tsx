@@ -1,0 +1,72 @@
+import type { Metadata, Viewport } from "next";
+import { Fraunces, IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
+import { BottomNav } from "@/components/BottomNav";
+import { OfflineBanner } from "@/components/OfflineBanner";
+import "./globals.css";
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["SOFT", "WONK", "opsz"],
+  display: "swap",
+});
+
+const instrumentSans = Instrument_Sans({
+  variable: "--font-body",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: {
+    default: "PWA Plant — Conheça sua planta",
+    template: "%s · PWA Plant",
+  },
+  description:
+    "Fotografe uma planta e descubra a espécie, os cuidados e possíveis sinais de que ela precisa de atenção. Ferramenta educativa com IA.",
+  applicationName: "PWA Plant",
+  appleWebApp: {
+    capable: true,
+    title: "Plant",
+    statusBarStyle: "default",
+  },
+  formatDetection: { telephone: false },
+  icons: {
+    icon: [
+      { url: "/icons/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/icons/apple-touch-icon.png",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#f2ede3",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html
+      lang="pt-BR"
+      className={`${fraunces.variable} ${instrumentSans.variable} ${plexMono.variable} antialiased`}
+    >
+      <body className="paper-grain">
+        <OfflineBanner />
+        <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-xl flex-col pb-[calc(var(--nav-h)+var(--safe-bottom)+1rem)]">
+          {children}
+        </div>
+        <BottomNav />
+      </body>
+    </html>
+  );
+}

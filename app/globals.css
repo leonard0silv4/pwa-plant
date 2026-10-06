@@ -1,0 +1,212 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+ * PWA Plant — "caderno de campo" visual identity.
+ * Warm paper, deep ink, moss used with intention, clay for attention.
+ */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-moss: var(--moss);
+  --color-moss-deep: var(--moss-deep);
+  --color-sage: var(--sage);
+  --color-lichen: var(--lichen);
+  --color-clay: var(--clay);
+  --color-amber: var(--amber);
+
+  --font-sans: var(--font-body);
+  --font-display: var(--font-fraunces);
+  --font-mono: var(--font-plex-mono);
+  --font-heading: var(--font-fraunces);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --ease-organic: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --paper: #f2ede3;
+  --paper-deep: #e8e1d2;
+  --ink: #1c211d;
+  --ink-soft: #5d6158;
+  --moss: #2f4a35;
+  --moss-deep: #1f3324;
+  --sage: #9aae8f;
+  --lichen: #e4ecb4;
+  --clay: #b4623d;
+  --amber: #c08a2c;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #faf7f1;
+  --card-foreground: var(--ink);
+  --popover: #faf7f1;
+  --popover-foreground: var(--ink);
+  --primary: var(--moss);
+  --primary-foreground: #f6f2e8;
+  --secondary: var(--paper-deep);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper-deep);
+  --muted-foreground: var(--ink-soft);
+  --accent: #e6e9d6;
+  --accent-foreground: var(--moss-deep);
+  --destructive: #a8462c;
+  --border: rgb(28 33 29 / 0.1);
+  --input: rgb(28 33 29 / 0.14);
+  --ring: rgb(47 74 53 / 0.45);
+  --radius: 1rem;
+
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --nav-h: 4.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-background text-foreground;
+    min-height: 100dvh;
+    overscroll-behavior-y: none;
+  }
+  ::selection {
+    background: var(--lichen);
+    color: var(--ink);
+  }
+}
+
+/* Very subtle paper grain over the whole app (static, no repaint cost). */
+.paper-grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3  0 0 0 0 0.27  0 0 0 0 0.2  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+@utility font-display {
+  font-family: var(--font-fraunces);
+  font-variation-settings: "SOFT" 60, "WONK" 0;
+}
+
+@utility label-mono {
+  font-family: var(--font-plex-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@utility pressable {
+  transition: transform 120ms var(--ease-organic), background-color 200ms, box-shadow 200ms;
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ---------- Entrance motion ---------- */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes photo-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.rise-in {
+  animation: rise-in 700ms var(--ease-organic) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+.photo-in {
+  animation: photo-in 520ms var(--ease-organic) both;
+}
+
+.draw-line path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-line 2.2s var(--ease-organic) forwards;
+  animation-delay: calc(var(--d, 0) * 1ms + 200ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-in,
+  .photo-in {
+    animation-duration: 1ms;
+    animation-delay: 0ms;
+  }
+  .draw-line path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .pressable:active {
+    transform: none;
+  }
+}
