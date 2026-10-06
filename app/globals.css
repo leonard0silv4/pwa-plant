@@ -199,28 +199,21 @@
   animation: photo-in 520ms var(--ease-organic) both;
 }
 
-.sprig-in {
-  animation: sprig-in 900ms var(--ease-organic) 120ms backwards;
+.draw-sprig path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-line 2s ease-in-out 150ms forwards;
 }
 
 /* ---------- Living details ---------- */
 
-@keyframes sprig-in {
-  from {
-    opacity: 0;
-    translate: 0 10px;
-    scale: 0.96;
-  }
-}
-
-/* Uses the standalone `rotate` property so it composes with the `translate`/`scale` of sprig-in. */
 @keyframes sway {
   0%,
   100% {
-    rotate: -0.8deg;
+    transform: rotate(-0.8deg);
   }
   50% {
-    rotate: 0.8deg;
+    transform: rotate(0.8deg);
   }
 }
 
@@ -302,15 +295,10 @@
   }
 }
 
-/* Starts with the entrance; `backwards` holds the first keyframe so it never snaps. */
+/* Starts while the sprig draws; `backwards` holds the first keyframe so it never snaps. */
 .sway {
   transform-origin: 50% 100%;
   animation: sway 8s ease-in-out infinite backwards;
-}
-.sprig-in.sway {
-  animation:
-    sprig-in 900ms var(--ease-organic) 120ms backwards,
-    sway 8s ease-in-out infinite backwards;
 }
 
 .drift {
@@ -419,9 +407,9 @@
     animation-duration: 1ms;
     animation-delay: 0ms;
   }
-  .sprig-in,
-  .sprig-in.sway {
+  .draw-sprig path {
     animation: none;
+    stroke-dashoffset: 0;
   }
   .pressable:active {
     transform: none;
