@@ -83,7 +83,7 @@ O service worker só é gerado no build de produção. Para testar PWA/offline l
 | --- | --- | --- |
 | `OPENAI_API_KEY` | sim | Chave da OpenAI. Existe apenas no servidor. |
 | `OPENAI_MODEL` | não | Modelo multimodal (padrão `gpt-5.4-mini`). |
-| `RATE_LIMIT_PER_HOUR` | não | Análises por hora por IP (padrão `10`). |
+| `RATE_LIMIT_PER_HOUR` | não | Análises por hora por IP (padrão `200`; numa escola todos compartilham o mesmo IP). |
 
 Nunca faça commit de `.env.local`.
 

@@ -19,48 +19,50 @@ export const plantAnalysisSchema = z.object({
     confidence: z.number().min(0).max(1).describe("Confiança honesta da identificação entre 0 e 1"),
     alternatives: z
       .array(z.object({ commonName: z.string(), scientificName: z.string() }))
-      .max(3)
+      .max(2)
       .describe("Espécies parecidas quando há dúvida"),
   }),
 
-  description: z.string().describe("2 a 3 frases simples sobre a planta, para crianças"),
-  characteristics: z.array(z.string()).max(5),
+  description: z.string().describe("2 frases simples sobre a planta, para crianças"),
+  characteristics: z.array(z.string().describe("Poucas palavras")).max(3),
 
   health: z.object({
     overallStatus: z.enum(["healthy", "attention", "possible_problem", "unknown"]),
-    summary: z.string().describe("1 a 2 frases sobre o que é visível na foto"),
-    observations: z.array(z.string()).max(5),
+    summary: z.string().describe("1 frase sobre o que é visível na foto"),
+    observations: z.array(z.string().describe("1 frase curta")).max(3),
     possibleProblems: z
       .array(
         z.object({
           name: z.string(),
           probability: level,
-          explanation: z.string(),
+          explanation: z.string().describe("1 frase"),
         }),
       )
-      .max(4),
+      .max(2),
   }),
 
-  care: z.object({
-    watering: z.string(),
-    light: z.string(),
-    soil: z.string(),
-    temperature: z.string().nullable(),
-    humidity: z.string().nullable(),
-    fertilization: z.string().nullable(),
-  }),
+  care: z
+    .object({
+      watering: z.string(),
+      light: z.string(),
+      soil: z.string(),
+      temperature: z.string().nullable(),
+      humidity: z.string().nullable(),
+      fertilization: z.string().nullable(),
+    })
+    .describe("1 frase curta por item"),
 
   recommendations: z
     .array(
       z.object({
         title: z.string(),
-        description: z.string(),
+        description: z.string().describe("1 frase"),
         priority: level,
       }),
     )
-    .max(5),
+    .max(3),
 
-  curiosities: z.array(z.string()).max(3),
+  curiosities: z.array(z.string().describe("1 frase")).max(2),
   toxicity: z.string().nullable().describe("Aviso sobre toxicidade para pessoas ou animais, se conhecida"),
   warning: z.string().nullable(),
 
@@ -69,10 +71,10 @@ export const plantAnalysisSchema = z.object({
     .array(
       z.object({
         question: z.string(),
-        options: z.array(z.string()).max(5),
+        options: z.array(z.string()).max(4),
       }),
     )
-    .max(3),
+    .max(2),
 });
 
 export type PlantAnalysis = z.infer<typeof plantAnalysisSchema>;

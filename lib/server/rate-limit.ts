@@ -5,7 +5,7 @@ import "server-only";
 // instance rather than globally — good enough for v1 without external storage.
 
 const WINDOW_MS = 60 * 60 * 1000;
-const MAX_REQUESTS = Number(process.env.RATE_LIMIT_PER_HOUR) || 10;
+const MAX_REQUESTS = Number(process.env.RATE_LIMIT_PER_HOUR) || 200;
 const MAX_TRACKED_IPS = 10_000;
 
 const hits = new Map<string, number[]>();
