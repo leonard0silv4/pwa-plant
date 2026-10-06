@@ -3,10 +3,10 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "PWA Plant",
-    short_name: "Plant",
+    name: "FloraScan",
+    short_name: "FloraScan",
     description:
-      "Fotografe uma planta e descubra a espécie, os cuidados e possíveis sinais de que ela precisa de atenção.",
+      "Descubra e cuide das plantas com inteligência artificial. Projeto da Feira de Ciências do Colégio MAF.",
     lang: "pt-BR",
     start_url: "/",
     scope: "/",

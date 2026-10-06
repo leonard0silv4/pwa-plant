@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** Abstract leaf with a scan line — the PWA Plant mark. */
+/** Abstract leaf with a scan line — the FloraScan mark. */
 export function LeafMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 48 48" aria-hidden className={cn("size-8", className)}>

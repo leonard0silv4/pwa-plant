@@ -34,7 +34,7 @@ export default function AboutPage() {
     <main className="flex-1">
       <PageHeader eyebrow="Sobre o projeto" title={<>Um caderno de campo, <em className="text-moss">com IA.</em></>}>
         <p>
-          O PWA Plant é uma ferramenta educativa que utiliza inteligência artificial para ajudar a identificar
+          O FloraScan é uma ferramenta educativa que utiliza inteligência artificial para ajudar a identificar
           plantas e entender seus cuidados.
         </p>
       </PageHeader>
@@ -78,7 +78,8 @@ export default function AboutPage() {
           <p>Luz natural, planta em foco, folhas visíveis. Se houver um problema, fotografe de perto a área afetada.</p>
         </Section>
 
-        <p className="label-mono px-2 pt-4 pb-2 text-center text-ink-soft/60">Gratuito · Educativo · Sem anúncios</p>
+        <p className="px-2 pt-4 text-center text-sm text-ink-soft">Desenvolvido para a Feira de Ciências do Colégio MAF.</p>
+        <p className="label-mono px-2 pt-2 pb-2 text-center text-ink-soft/60">Gratuito · Educativo · Sem anúncios</p>
       </div>
     </main>
   );

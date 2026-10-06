@@ -23,7 +23,7 @@ export default function HistoryPage() {
 
   return (
     <main className="flex-1">
-      <title>Histórico · PWA Plant</title>
+      <title>Histórico · FloraScan</title>
       <PageHeader eyebrow="Histórico" title="Minhas análises">
         {items && items.length > 0 && (
           <p>

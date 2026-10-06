@@ -66,7 +66,7 @@ export function InstallPrompt() {
   return (
     <div className="rise-in mt-8 flex items-center gap-3 rounded-[1.4rem] bg-card/90 p-3 pl-4 ring-1 ring-ink/[0.05]">
       <div className="min-w-0 flex-1 text-sm leading-snug">
-        <p className="font-medium text-ink">Leve o PWA Plant com você</p>
+        <p className="font-medium text-ink">Leve o FloraScan com você</p>
         {mode === "ios" ? (
           <p className="mt-0.5 text-ink-soft">
             Toque em <Share className="mb-0.5 inline size-3.5" aria-label="Compartilhar" /> e depois em{" "}

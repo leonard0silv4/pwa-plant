@@ -19,9 +19,9 @@ export function Hero({
       <div className="rise-in flex items-center justify-between">
         <div className="flex items-center gap-2 text-moss">
           <LeafMark className="size-7" />
-          <span className="font-display text-lg font-[500] tracking-tight text-ink">PWA Plant</span>
+          <span className="font-display text-lg font-[500] tracking-tight text-ink">FloraScan</span>
         </div>
-        <span className="label-mono text-ink-soft/70">Caderno de campo</span>
+        <span className="label-mono text-ink-soft/70">Colégio MAF</span>
       </div>
 
       <button
@@ -42,7 +42,7 @@ export function Hero({
           className="font-display rise-in text-[clamp(2.1rem,9vw,2.6rem)] leading-[1] font-[400] tracking-[-0.025em] text-ink"
           style={{ "--i": 2 } as CSSProperties}
         >
-          Conheça sua <em className="font-[380] text-moss">planta</em>
+          Descubra sua <em className="font-[380] text-moss">planta</em>
         </h1>
         <p
           className="rise-in mx-auto mt-3 max-w-[19rem] text-[0.95rem] leading-relaxed text-ink-soft"
