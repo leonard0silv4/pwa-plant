@@ -199,13 +199,26 @@
   animation: photo-in 520ms var(--ease-organic) both;
 }
 
-.draw-sprig path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: draw-line 2s ease-in-out 150ms forwards;
+/* Reveals the sprig from the soil up while it stretches from its base, like it is growing. */
+.grow-sprig {
+  transform-origin: 50% 100%;
+  animation:
+    grow-sprig 3.6s var(--ease-organic) 150ms backwards,
+    sway 8s ease-in-out infinite backwards;
 }
 
 /* ---------- Living details ---------- */
+
+@keyframes grow-sprig {
+  from {
+    clip-path: inset(100% -10% 0 -10%);
+    scale: 0.85;
+  }
+  to {
+    clip-path: inset(-10% -10% 0 -10%);
+    scale: 1;
+  }
+}
 
 @keyframes sway {
   0%,
@@ -407,9 +420,8 @@
     animation-duration: 1ms;
     animation-delay: 0ms;
   }
-  .draw-sprig path {
+  .grow-sprig {
     animation: none;
-    stroke-dashoffset: 0;
   }
   .pressable:active {
     transform: none;

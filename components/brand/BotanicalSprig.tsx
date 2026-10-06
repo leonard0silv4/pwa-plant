@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
-// Stem, four leaves (outline + midrib) and a bud, merged into one path: a single dash sweeps
-// through the subpaths in order, so the sprig draws itself with one animation instead of ten.
+// Stem, four leaves (outline + midrib) and a bud, merged into one path so the browser
+// rasterizes a single shape.
 const d = [
   "M100 250 C 98 200, 104 150, 100 60",
   "M101 205 C 125 195, 150 175, 158 150 C 135 152, 112 172, 101 205",
@@ -15,20 +15,20 @@ const d = [
   "M100 60 C 92 48, 94 32, 100 22 C 106 32, 108 48, 100 60",
 ].join(" ");
 
-/** Hand-drawn style sprig, stroked in on mount. Purely decorative. */
+/** Hand-drawn style sprig that grows up from its base on mount. Purely decorative. */
 export function BotanicalSprig({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 200 260"
       aria-hidden
-      className={cn("draw-sprig", className)}
+      className={cn("grow-sprig", className)}
       fill="none"
       stroke="currentColor"
       strokeWidth="1.15"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d={d} pathLength={1} />
+      <path d={d} />
     </svg>
   );
 }

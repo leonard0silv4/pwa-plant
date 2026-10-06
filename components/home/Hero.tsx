@@ -47,7 +47,7 @@ export function Hero({
         {/* Dappled light, like sun moving through leaves. */}
         <div className="dapple absolute -inset-[20%] bg-[radial-gradient(35%_28%_at_35%_30%,rgb(228_236_180/0.45),transparent_70%),radial-gradient(30%_24%_at_70%_55%,rgb(228_236_180/0.3),transparent_70%)]" />
         <div className="absolute inset-x-0 bottom-0 mx-auto h-[86%] transition-transform duration-700 ease-[var(--ease-organic)] group-hover:scale-[1.03]">
-          <BotanicalSprig className="sway size-full text-moss/80" />
+          <BotanicalSprig className="size-full text-moss/80" />
         </div>
         {POLLEN.map(([x, y, t, delay, dx, o], k) => (
           <span
