@@ -24,11 +24,11 @@ export default function HistoryPage() {
   return (
     <main className="flex-1">
       <title>Histórico · FloraScan</title>
-      <PageHeader eyebrow="Histórico" title="Minhas análises">
+      <PageHeader eyebrow="Histórico" title="Minhas plantas">
         {items && items.length > 0 && (
           <p>
-            {items.length} {items.length === 1 ? "planta analisada" : "plantas analisadas"}, salvas somente neste
-            aparelho.
+            {items.length} {items.length === 1 ? "planta analisada" : "plantas analisadas"}, guardadas só neste
+            celular.
           </p>
         )}
       </PageHeader>
@@ -100,9 +100,9 @@ function EmptyState() {
       <span className="flex size-14 items-center justify-center rounded-full bg-paper-deep text-moss">
         <Sprout className="size-6" strokeWidth={1.6} />
       </span>
-      <p className="font-display mt-4 text-xl font-[440]">Nenhuma análise ainda</p>
+      <p className="font-display mt-4 text-xl font-[440]">Nenhuma planta ainda</p>
       <p className="mt-2 max-w-[16rem] text-sm leading-relaxed text-ink-soft">
-        Suas plantas analisadas aparecem aqui e ficam salvas somente neste aparelho.
+        As plantas que você analisar aparecem aqui. Elas ficam guardadas só neste celular.
       </p>
       <Link
         href="/"

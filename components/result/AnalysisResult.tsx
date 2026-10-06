@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import {
   AlertTriangle,
   CircleHelp,
@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import type { PlantAnalysis } from "@/lib/analysis-schema";
 import { cn } from "@/lib/utils";
-import { HEALTH, LEVEL_LABEL, PRIORITY_ORDER, confidenceLabel } from "./labels";
+import { HEALTH, PRIORITY_LABEL, PRIORITY_ORDER, PROBABILITY_LABEL, confidenceLabel } from "./labels";
 
 const stagger = (i: number) => ({ "--i": i } as CSSProperties);
 
@@ -36,7 +36,24 @@ function Section({
   return (
     <section className={cn("rise-in", className)} style={stagger(index)}>
       {eyebrow && <p className="label-mono mb-1.5 px-1 text-ink-soft/80">{eyebrow}</p>}
-      <h2 className="font-display mb-3 px-1 text-[1.6rem] leading-tight font-[430] tracking-[-0.015em]">{title}</h2>
+      <h2 className="font-display mb-3 px-1 text-[1.6rem] leading-tight font-[430] tracking-[-0.015em]">
+        <span className="relative inline-block">
+          {title}
+          <svg
+            aria-hidden
+            viewBox="0 0 100 8"
+            preserveAspectRatio="none"
+            className="underline-draw absolute -bottom-1.5 left-0 h-2 w-full text-sage"
+            style={stagger(index)}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+          >
+            <path d="M1 5 C 20 2, 38 7, 58 4 S 88 3, 99 5" pathLength={1} vectorEffect="non-scaling-stroke" />
+          </svg>
+        </span>
+      </h2>
       {children}
     </section>
   );
@@ -68,7 +85,7 @@ export function AnalysisResult({
   const recommendations = [...analysis.recommendations].sort(
     (a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority],
   );
-  const pct = Math.round(id.confidence * 100);
+  const pct = useCountUp(Math.round(id.confidence * 100));
   const careItems = CARE_ITEMS.filter((c) => care[c.key]);
 
   let i = 0;
@@ -79,7 +96,7 @@ export function AnalysisResult({
       <div className="relative">
         <div className="photo-in relative overflow-hidden rounded-b-[2.5rem] bg-ink">
           {/* eslint-disable-next-line @next/next/no-img-element -- local blob URL */}
-          <img src={photoUrl} alt={id.commonName || "Foto da planta"} className="aspect-[4/5] max-h-[68dvh] w-full object-cover" />
+          <img src={photoUrl} alt={id.commonName || "Foto da planta"} className="ken-burns aspect-[4/5] max-h-[68dvh] w-full object-cover" />
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(18_24_19/0.35),transparent_22%,transparent_60%,rgb(18_24_19/0.55))]" />
           {date && (
             <p className="label-mono absolute top-[max(1.6rem,calc(env(safe-area-inset-top)+0.6rem))] right-5 text-paper/90">
@@ -112,7 +129,7 @@ export function AnalysisResult({
             <ConfidenceMeter value={id.confidence} />
             <div className="text-sm leading-tight">
               <p className="font-medium text-ink">{confidenceLabel(id.confidence)}</p>
-              <p className="text-ink-soft">{pct}% de confiança na espécie</p>
+              <p className="text-ink-soft tabular-nums">{pct}% de certeza</p>
             </div>
           </div>
 
@@ -131,7 +148,7 @@ export function AnalysisResult({
         </header>
 
         {/* About */}
-        <Section title="Sobre" index={i++}>
+        <Section title="Conheça a planta" index={i++}>
           <p className="px-1 text-[1.02rem] leading-relaxed text-ink/85">{analysis.description}</p>
           {analysis.characteristics.length > 0 && (
             <ul className="mt-4 flex flex-wrap gap-2 px-1">
@@ -148,12 +165,12 @@ export function AnalysisResult({
         {careItems.length > 0 && (
           <Section title="Como cuidar" index={i++}>
             <div className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-5 px-5 pb-2">
-              {careItems.map(({ key, label, icon: Icon, tint }) => (
+              {careItems.map(({ key, label, icon: Icon, tint }, k) => (
                 <div
                   key={key}
                   className="flex w-[15.5rem] shrink-0 snap-start flex-col rounded-[1.6rem] bg-card p-5 ring-1 ring-ink/[0.04]"
                 >
-                  <span className={cn("flex size-10 items-center justify-center rounded-full", tint)}>
+                  <span className={cn("sprout flex size-10 items-center justify-center rounded-full", tint)} style={stagger(k)}>
                     <Icon className="size-[1.15rem]" strokeWidth={1.8} />
                   </span>
                   <p className="mt-4 font-medium text-ink">{label}</p>
@@ -165,10 +182,12 @@ export function AnalysisResult({
         )}
 
         {/* Health */}
-        <Section title="Saúde da planta" index={i++}>
+        <Section title="Como ela está?" index={i++}>
           <div className="rounded-[1.75rem] bg-card p-5 ring-1 ring-ink/[0.04]">
             <span className={cn("inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium", healthMeta.tone)}>
-              <HealthIcon status={health.overallStatus} />
+              <span className={cn("rounded-full", health.overallStatus !== "healthy" && health.overallStatus !== "unknown" && "soft-pulse")}>
+                <HealthIcon status={health.overallStatus} />
+              </span>
               {healthMeta.label}
             </span>
             <p className="mt-3 text-[1rem] leading-relaxed text-ink/85">{health.summary}</p>
@@ -186,13 +205,13 @@ export function AnalysisResult({
 
           {health.possibleProblems.length > 0 && (
             <div className="mt-5">
-              <p className="label-mono mb-2.5 px-1 text-ink-soft/80">Possíveis problemas</p>
+              <p className="label-mono mb-2.5 px-1 text-ink-soft/80">O que pode estar acontecendo</p>
               <ul className="space-y-2.5">
                 {health.possibleProblems.map((p, k) => (
                   <li key={k} className="rounded-[1.4rem] bg-card/70 p-4 ring-1 ring-ink/[0.04]">
                     <div className="flex items-start justify-between gap-3">
                       <p className="font-medium text-ink">{p.name}</p>
-                      <LevelPill level={p.probability} prefix="Probabilidade" />
+                      <LevelPill level={p.probability} label={PROBABILITY_LABEL[p.probability]} prefix="Chance" />
                     </div>
                     <p className="mt-1.5 text-[0.92rem] leading-relaxed text-ink-soft">{p.explanation}</p>
                   </li>
@@ -204,7 +223,7 @@ export function AnalysisResult({
 
         {/* Recommendations */}
         {recommendations.length > 0 && (
-          <Section title="O que fazer agora" eyebrow="Recomendações" index={i++}>
+          <Section title="O que fazer agora" eyebrow="Dicas" index={i++}>
             <ol className="space-y-1">
               {recommendations.map((r, k) => (
                 <li key={k} className="flex gap-4 rounded-[1.4rem] px-1 py-3">
@@ -214,7 +233,7 @@ export function AnalysisResult({
                   <div className="min-w-0 flex-1 pt-1">
                     <div className="flex items-start justify-between gap-3">
                       <p className="font-medium leading-snug text-ink">{r.title}</p>
-                      {r.priority === "high" && <LevelPill level="high" prefix="Prioridade" />}
+                      {r.priority === "high" && <LevelPill level="high" label={PRIORITY_LABEL.high} prefix="Prioridade" />}
                     </div>
                     <p className="mt-1 text-[0.93rem] leading-relaxed text-ink-soft">{r.description}</p>
                   </div>
@@ -228,12 +247,12 @@ export function AnalysisResult({
         {(analysis.warning || analysis.toxicity) && (
           <div className="rise-in space-y-3" style={stagger(i++)}>
             {analysis.toxicity && (
-              <Callout icon={FlaskConical} title="Toxicidade">
+              <Callout icon={FlaskConical} title="Cuidado: pode fazer mal">
                 {analysis.toxicity}
               </Callout>
             )}
             {analysis.warning && (
-              <Callout icon={AlertTriangle} title="Importante">
+              <Callout icon={AlertTriangle} title="Atenção">
                 {analysis.warning}
               </Callout>
             )}
@@ -245,7 +264,7 @@ export function AnalysisResult({
           <Section title="Precisamos saber mais 🌱" index={i++}>
             <div className="space-y-3 rounded-[1.75rem] bg-[#e9ecdc] p-5">
               <p className="text-[0.93rem] leading-relaxed text-ink-soft">
-                A foto sozinha não basta para entender tudo. Pense nestas perguntas — elas ajudam a descobrir a causa:
+                Só a foto não conta tudo. Pense nestas perguntas — elas ajudam a descobrir o que está acontecendo:
               </p>
               {analysis.followUpQuestions.map((q, k) => (
                 <div key={k} className="rounded-2xl bg-card/80 p-4">
@@ -270,7 +289,7 @@ export function AnalysisResult({
 
         {/* Curiosities */}
         {analysis.curiosities.length > 0 && (
-          <Section title="Curiosidades" index={i++}>
+          <Section title="Você sabia?" index={i++}>
             <ul className="space-y-3 px-1">
               {analysis.curiosities.map((c, k) => (
                 <li key={k} className="flex gap-3 text-[0.96rem] leading-relaxed text-ink/80">
@@ -289,17 +308,41 @@ export function AnalysisResult({
         )}
 
         <p className="rise-in px-2 text-center text-[0.8rem] leading-relaxed text-ink-soft/80" style={stagger(i++)}>
-          Análise educativa baseada apenas na fotografia — pode conter imprecisões e não substitui a avaliação de
-          um agrônomo, botânico ou profissional especializado.
+          A inteligência artificial olhou só a foto e pode errar. Se a planta parecer doente, peça ajuda a um adulto
+          ou a um especialista em plantas.
         </p>
       </div>
     </article>
   );
 }
 
+/** Counts from 0 to `target` once on mount; jumps straight there with reduced motion. */
+function useCountUp(target: number, duration = 1200) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    const instant = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let frame = 0;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = instant ? 1 : Math.min(1, (now - start) / duration);
+      setValue(Math.round(target * (1 - Math.pow(1 - t, 3))));
+      if (t < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [target, duration]);
+  return value;
+}
+
 function ConfidenceMeter({ value }: { value: number }) {
   const r = 18;
   const c = 2 * Math.PI * r;
+  // Start empty so the ring visibly fills up after mount.
+  const [shown, setShown] = useState(0);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setShown(value));
+    return () => cancelAnimationFrame(frame);
+  }, [value]);
   return (
     <svg viewBox="0 0 44 44" className="size-11 -rotate-90" aria-hidden>
       <circle cx="22" cy="22" r={r} fill="none" stroke="var(--paper-deep)" strokeWidth="4" />
@@ -312,14 +355,14 @@ function ConfidenceMeter({ value }: { value: number }) {
         strokeWidth="4"
         strokeLinecap="round"
         strokeDasharray={c}
-        strokeDashoffset={c * (1 - value)}
+        strokeDashoffset={c * (1 - shown)}
         style={{ transition: "stroke-dashoffset 1.2s var(--ease-organic)" }}
       />
     </svg>
   );
 }
 
-function LevelPill({ level, prefix }: { level: keyof typeof LEVEL_LABEL; prefix: string }) {
+function LevelPill({ level, label, prefix }: { level: keyof typeof PROBABILITY_LABEL; label: string; prefix: string }) {
   const tone = {
     high: "bg-[#f2dccf] text-[#7a3519]",
     medium: "bg-[#f3e6c8] text-[#6b4a12]",
@@ -328,7 +371,7 @@ function LevelPill({ level, prefix }: { level: keyof typeof LEVEL_LABEL; prefix:
   return (
     <span className={cn("shrink-0 rounded-full px-2.5 py-1 text-[0.72rem] font-medium whitespace-nowrap", tone)}>
       <span className="sr-only">{prefix}: </span>
-      {LEVEL_LABEL[level]}
+      {label}
     </span>
   );
 }

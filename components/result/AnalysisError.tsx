@@ -6,34 +6,34 @@ import type { AnalyzeErrorCode } from "@/lib/analysis-schema";
 
 const COPY: Record<AnalyzeErrorCode, { title: string; body: string; tips?: string[] }> = {
   not_plant: {
-    title: "Não conseguimos identificar uma planta nessa foto 🌱",
-    body: "Tente fotografar:",
+    title: "Não achamos uma planta nessa foto 🌱",
+    body: "Tente tirar foto de:",
     tips: ["folhas", "caule", "flores", "a planta inteira"],
   },
   poor_image: {
-    title: "A imagem não possui detalhes suficientes.",
-    body: "Tente novamente com mais luz e mantendo a planta em foco. Ajuda também:",
-    tips: ["folhas visíveis", "enquadramento mais próximo", "fundo simples"],
+    title: "A foto ficou difícil de ver.",
+    body: "Tente de novo num lugar mais claro, sem tremer. Também ajuda:",
+    tips: ["mostrar as folhas", "chegar mais perto", "fundo sem bagunça"],
   },
   invalid_input: {
-    title: "Não conseguimos ler essa imagem.",
-    body: "Use uma foto em JPEG, PNG ou WebP.",
+    title: "Não conseguimos abrir essa foto.",
+    body: "Tente outra foto (do tipo JPEG, PNG ou WebP).",
   },
   too_large: {
-    title: "Essa imagem é grande demais.",
-    body: "Tente outra foto ou faça uma captura direto pelo app.",
+    title: "Essa foto é grande demais.",
+    body: "Tente outra foto ou tire uma nova direto pelo app.",
   },
   rate_limited: {
-    title: "Você fez muitas análises seguidas.",
-    body: "Para manter o app gratuito, limitamos o número de análises por hora. Tente novamente mais tarde.",
+    title: "Ufa, foram muitas plantas seguidas!",
+    body: "Para o app continuar de graça, cada pessoa pode analisar algumas plantas por hora. Espere um pouco e tente de novo.",
   },
   timeout: {
-    title: "A análise demorou mais do que o esperado.",
-    body: "Tente novamente em alguns instantes.",
+    title: "Demorou mais do que devia.",
+    body: "Espere um pouquinho e tente de novo.",
   },
   unavailable: {
-    title: "Não foi possível analisar sua planta agora.",
-    body: "Tente novamente em alguns instantes.",
+    title: "Não deu para olhar sua planta agora.",
+    body: "Espere um pouquinho e tente de novo.",
   },
 };
 
@@ -94,7 +94,7 @@ export function AnalysisError({
             className="pressable flex h-12 items-center gap-2 rounded-full px-5 font-medium text-ink hover:bg-ink/[0.04]"
           >
             <RefreshCw className="size-4 text-ink-soft" />
-            Tentar novamente
+            Tentar de novo
           </button>
         )}
       </div>

@@ -18,6 +18,7 @@ const items = [
 
 export function BottomNav() {
   const pathname = usePathname();
+  const activeIndex = items.findIndex((item) => item.match(pathname));
 
   return (
     <nav
@@ -25,11 +26,21 @@ export function BottomNav() {
       className="fixed inset-x-0 bottom-0 z-40 pb-[var(--safe-bottom)]"
     >
       <div className="mx-auto mb-3 flex h-[var(--nav-h)] max-w-xl items-center px-4">
-        <ul className="flex w-full items-center justify-around rounded-full border border-ink/[0.06] bg-card/80 px-2 py-2 shadow-[0_12px_32px_-16px_rgb(28_33_29/0.35)] backdrop-blur-xl">
+        <ul className="relative flex w-full items-center justify-around rounded-full border border-ink/[0.06] bg-card/80 px-2 py-2 shadow-[0_12px_32px_-16px_rgb(28_33_29/0.35)] backdrop-blur-xl">
+          {/* One highlight that glides between tabs instead of each tab owning a background. */}
+          {activeIndex >= 0 && (
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-y-2 left-2 flex w-[calc((100%-1rem)/3)] justify-center transition-transform duration-500 ease-[var(--ease-organic)] motion-reduce:transition-none"
+              style={{ transform: `translateX(${activeIndex * 100}%)` }}
+            >
+              <span className="mt-1.5 h-7 w-12 rounded-full bg-accent" />
+            </span>
+          )}
           {items.map(({ href, label, icon: Icon, match }) => {
             const active = match(pathname);
             return (
-              <li key={href} className="flex-1">
+              <li key={href} className="relative flex-1">
                 <Link
                   href={href}
                   aria-current={active ? "page" : undefined}
@@ -38,13 +49,12 @@ export function BottomNav() {
                     active ? "text-moss" : "text-ink-soft/70 hover:text-ink",
                   )}
                 >
-                  <span
-                    className={cn(
-                      "flex h-7 w-12 items-center justify-center rounded-full transition-colors duration-300",
-                      active && "bg-accent",
-                    )}
-                  >
-                    <Icon className="size-[1.15rem]" strokeWidth={active ? 2 : 1.6} />
+                  <span className="flex h-7 w-12 items-center justify-center">
+                    <Icon
+                      key={active ? "on" : "off"}
+                      className={cn("size-[1.15rem]", active && "pop")}
+                      strokeWidth={active ? 2 : 1.6}
+                    />
                   </span>
                   {label}
                 </Link>

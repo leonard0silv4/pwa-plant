@@ -73,7 +73,7 @@ export function InstallPrompt() {
             <span className="text-ink">Adicionar à Tela de Início</span>.
           </p>
         ) : (
-          <p className="mt-0.5 text-ink-soft">Instale e abra direto da tela inicial.</p>
+          <p className="mt-0.5 text-ink-soft">Coloque o app na tela do celular para abrir mais rápido.</p>
         )}
       </div>
       {mode === "android" && (

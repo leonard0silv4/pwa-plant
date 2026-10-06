@@ -24,12 +24,12 @@ export function SavedAnalysis() {
   if (!id || entry === null) {
     return (
       <main className="flex-1">
-        <PageHeader eyebrow="Análise" title="Análise não encontrada">
-          <p>Ela pode ter sido apagada deste aparelho.</p>
+        <PageHeader eyebrow="Análise" title="Não achamos essa planta">
+          <p>Ela pode ter sido apagada deste celular.</p>
         </PageHeader>
         <div className="px-6">
           <Link href="/history" className="font-medium text-moss underline-offset-4 hover:underline">
-            Ver minhas análises
+            Ver minhas plantas
           </Link>
         </div>
       </main>

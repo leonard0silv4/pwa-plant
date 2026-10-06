@@ -6,11 +6,11 @@ import { cn } from "@/lib/utils";
 import styles from "./scanner.module.css";
 
 const MESSAGES = [
-  "Observando a planta…",
-  "Identificando características…",
-  "Verificando sinais nas folhas…",
-  "Comparando formatos e texturas…",
-  "Preparando os cuidados…",
+  "Olhando a planta com atenção…",
+  "Procurando pistas nas folhas…",
+  "Comparando com outras plantas…",
+  "Vendo se ela está saudável…",
+  "Separando dicas de cuidado…",
 ];
 
 // Decorative markers only — they do NOT correspond to anything the model detected.
@@ -67,6 +67,21 @@ export function PlantScanner({
           <div className={styles.beam}>
             <div className={styles.line} />
           </div>
+          {/* Herbarium-style annotation: thin leaders linking the markers in the order they appear. */}
+          <svg className={styles.links} viewBox="0 0 100 100" preserveAspectRatio="none">
+            {MARKERS.slice(1).map((m, i) => (
+              <line
+                key={i}
+                x1={MARKERS[i].x}
+                y1={MARKERS[i].y}
+                x2={m.x}
+                y2={m.y}
+                pathLength={1}
+                vectorEffect="non-scaling-stroke"
+                style={{ "--delay": `${m.delay}ms` } as CSSProperties}
+              />
+            ))}
+          </svg>
           {MARKERS.map((m, i) => (
             <span
               key={i}
@@ -82,7 +97,8 @@ export function PlantScanner({
 
         {doneLabel && (
           <div className={styles.done} aria-hidden={phase === "scanning"}>
-            <span className="flex items-center gap-2 rounded-full bg-paper/95 px-4 py-2 text-sm font-medium text-moss shadow-lg backdrop-blur">
+            <span className="relative flex items-center gap-2 rounded-full bg-paper/95 px-4 py-2 text-sm font-medium text-moss shadow-lg backdrop-blur">
+              <span aria-hidden className={styles.ripple} />
               <Check className="size-4" strokeWidth={2.4} />
               {doneLabel}
             </span>
@@ -94,7 +110,18 @@ export function PlantScanner({
         <p key={messageIndex} className={cn("font-display text-[1.45rem] leading-tight font-[420] text-ink", styles.message)}>
           {phase === "scanning" ? MESSAGES[messageIndex] : "Quase lá…"}
         </p>
-        <p className="mt-2 text-sm text-ink-soft">Isso normalmente leva apenas alguns instantes.</p>
+        <div className="mt-4 flex justify-center gap-1.5" aria-hidden>
+          {MESSAGES.map((_, k) => (
+            <span
+              key={k}
+              className={cn(
+                "size-1.5 rounded-full transition-all duration-500 ease-[var(--ease-organic)]",
+                phase !== "scanning" || k <= messageIndex ? "w-4 bg-moss" : "bg-ink/15",
+              )}
+            />
+          ))}
+        </div>
+        <p className="mt-3 text-sm text-ink-soft">Só um pouquinho…</p>
       </div>
     </main>
   );

@@ -29,8 +29,8 @@ export function PhotoPreview({
           <div className="flex w-full items-start gap-3 rounded-2xl bg-card px-4 py-3.5 text-sm text-ink-soft">
             <WifiOff className="mt-0.5 size-4 shrink-0 text-clay" />
             <p>
-              <span className="font-medium text-ink">Você está offline.</span> Conecte-se à internet para analisar
-              uma nova planta.
+              <span className="font-medium text-ink">Você está sem internet.</span> Conecte-se para analisar uma
+              planta nova.
             </p>
           </div>
         ) : (
@@ -39,7 +39,7 @@ export function PhotoPreview({
             onClick={onAnalyze}
             className="pressable group flex h-14 w-full items-center justify-center gap-2.5 rounded-full bg-moss text-[1.02rem] font-medium text-primary-foreground shadow-[0_14px_30px_-14px_rgb(31_51_36/0.7)] hover:bg-moss-deep"
           >
-            Analisar planta
+            Descobrir a planta
             <ArrowRight className="size-[1.1rem] transition-transform duration-300 group-hover:translate-x-0.5" />
           </button>
         )}

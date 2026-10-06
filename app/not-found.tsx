@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <main className="flex-1">
       <PageHeader eyebrow="404" title="Essa página não brotou.">
-        <p>O endereço pode estar incorreto ou a página não existe mais.</p>
+        <p>Esse endereço está errado ou a página não existe mais.</p>
       </PageHeader>
       <div className="px-6">
         <Link

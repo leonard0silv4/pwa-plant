@@ -1,3 +1,4 @@
+import { ViewTransition } from "react";
 import type { Metadata, Viewport } from "next";
 import { Fraunces, IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
 import { BottomNav } from "@/components/BottomNav";
@@ -63,7 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="paper-grain">
         <OfflineBanner />
         <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-xl flex-col pb-[calc(var(--nav-h)+var(--safe-bottom)+1rem)]">
-          {children}
+          <ViewTransition default="page-fade">{children}</ViewTransition>
         </div>
         <BottomNav />
       </body>

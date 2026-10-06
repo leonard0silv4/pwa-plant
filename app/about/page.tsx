@@ -34,48 +34,47 @@ export default function AboutPage() {
     <main className="flex-1">
       <PageHeader eyebrow="Sobre o projeto" title={<>Um caderno de campo, <em className="text-moss">com IA.</em></>}>
         <p>
-          O FloraScan é uma ferramenta educativa que utiliza inteligência artificial para ajudar a identificar
-          plantas e entender seus cuidados.
+          O FloraScan é um app para aprender sobre plantas. Ele usa inteligência artificial (um programa de computador
+          que aprendeu a reconhecer imagens) para descobrir que planta é e como cuidar dela.
         </p>
       </PageHeader>
 
       <div className="space-y-4 px-5">
         <Section index={0} icon={<Sparkles className="size-4" />} title="Como funciona">
           <p>
-            Você fotografa a planta, a imagem é reduzida no seu aparelho e enviada ao nosso servidor, que pede a um
-            modelo de IA multimodal uma análise estruturada: espécie provável, cuidados e sinais visuais.
+            Você tira a foto. Ela fica menor no seu celular e vai para uma inteligência artificial, que olha a planta e
+            conta o que viu: o nome provável, como cuidar e se ela parece bem.
           </p>
-          <p>As análises são baseadas nas informações disponíveis na fotografia e podem conter imprecisões.</p>
+          <p>Ela só enxerga o que aparece na foto, então às vezes pode errar.</p>
         </Section>
 
-        <Section index={1} icon={<Stethoscope className="size-4" />} title="Não é um diagnóstico">
+        <Section index={1} icon={<Stethoscope className="size-4" />} title="Não é um médico de plantas">
           <p>
-            Uma foto mostra apenas parte da história. Sintomas parecidos podem ter causas diferentes — rega, luz,
-            pragas, fungos ou nutrientes. Por isso falamos em possibilidades, nunca em certezas.
+            Uma foto mostra só um pedacinho da história. Folhas amarelas, por exemplo, podem ser falta de água, água
+            demais ou pouca luz. Por isso o app fala em “talvez”, nunca em certeza.
           </p>
           <p>
-            Antes de usar produtos químicos, consumir uma planta ou em caso de suspeita de toxicidade, consulte um
-            agrônomo, botânico ou profissional especializado.
-          </p>
-        </Section>
-
-        <Section index={2} icon={<ShieldCheck className="size-4" />} title="Privacidade">
-          <p>
-            Não guardamos suas fotos. A imagem passa pelo servidor apenas durante a análise, é enviada à OpenAI para
-            processamento e descartada em seguida.
-          </p>
-          <p>Não há contas, cadastro ou rastreamento de usuários.</p>
-        </Section>
-
-        <Section index={3} icon={<HardDrive className="size-4" />} title="Seu histórico fica com você">
-          <p>
-            As análises e uma miniatura de cada foto ficam salvas somente neste aparelho, no armazenamento local do
-            navegador. Você pode apagá-las a qualquer momento.
+            Antes de usar remédios na planta, comer alguma parte dela ou se achar que ela pode fazer mal, chame um
+            adulto e peça ajuda a um especialista.
           </p>
         </Section>
 
-        <Section index={4} icon={<Camera className="size-4" />} title="Dicas para boas fotos">
-          <p>Luz natural, planta em foco, folhas visíveis. Se houver um problema, fotografe de perto a área afetada.</p>
+        <Section index={2} icon={<ShieldCheck className="size-4" />} title="Sua foto é só sua">
+          <p>
+            A gente não guarda suas fotos. A imagem é enviada à OpenAI só para ser analisada e depois é apagada.
+          </p>
+          <p>Não precisa criar conta nem fazer cadastro.</p>
+        </Section>
+
+        <Section index={3} icon={<HardDrive className="size-4" />} title="Suas plantas ficam com você">
+          <p>
+            As plantas que você analisa ficam guardadas só neste celular, com uma fotinho de cada. Você pode apagar
+            quando quiser.
+          </p>
+        </Section>
+
+        <Section index={4} icon={<Camera className="size-4" />} title="Dicas para uma boa foto">
+          <p>Use um lugar claro, chegue perto e mostre bem as folhas. Se tiver uma parte machucada, tire foto dela de perto.</p>
         </Section>
 
         <p className="px-2 pt-4 text-center text-sm text-ink-soft">Desenvolvido para a Feira de Ciências do Colégio MAF.</p>
