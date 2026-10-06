@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { Camera, ImageIcon } from "lucide-react";
+import { InstallPrompt } from "@/components/InstallPrompt";
 import { BotanicalSprig } from "@/components/brand/BotanicalSprig";
 import { LeafMark } from "@/components/brand/LeafMark";
 import { ViewfinderTicks } from "@/components/home/ViewfinderTicks";
@@ -72,6 +73,8 @@ export function Hero({
           Escolher da galeria
         </button>
       </div>
+
+      <InstallPrompt />
     </main>
   );
 }
