@@ -28,15 +28,15 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "FloraScan — Descubra sua planta",
-    template: "%s · FloraScan",
+    default: "Plantagotchi — Descubra sua planta",
+    template: "%s · Plantagotchi",
   },
   description:
     "Fotografe uma planta e descubra a espécie, os cuidados e possíveis sinais de que ela precisa de atenção. Projeto da Feira de Ciências do Colégio MAF.",
-  applicationName: "FloraScan",
+  applicationName: "Plantagotchi",
   appleWebApp: {
     capable: true,
-    title: "FloraScan",
+    title: "Plantagotchi",
     statusBarStyle: "default",
   },
   formatDetection: { telephone: false },

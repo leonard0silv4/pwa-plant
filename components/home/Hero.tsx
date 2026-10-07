@@ -1,8 +1,10 @@
-import type { CSSProperties } from "react";
+"use client";
+
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import Image from "next/image";
 import { Camera, ImageIcon } from "lucide-react";
 import { InstallPrompt } from "@/components/InstallPrompt";
-import { BotanicalSprig } from "@/components/brand/BotanicalSprig";
-import { LeafMark } from "@/components/brand/LeafMark";
+import { Plantagotchi, REACTIONS, type Reaction } from "@/components/brand/Plantagotchi";
 import { ViewfinderTicks } from "@/components/home/ViewfinderTicks";
 
 // Pollen motes drifting up inside the arch: [left %, bottom %, duration s, delay s, horizontal drift px, opacity].
@@ -16,6 +18,8 @@ const POLLEN = [
   [50, 12, 13, 6.8, 7, 0.45],
 ] as const;
 
+const REACTION_ORDER = Object.keys(REACTIONS) as Reaction[];
+
 export function Hero({
   onCamera,
   onGallery,
@@ -25,29 +29,42 @@ export function Hero({
   onGallery: () => void;
   disabled?: boolean;
 }) {
+  const [reaction, setReaction] = useState<Reaction | null>(null);
+  const taps = useRef(0);
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  // Each tap plays the next reaction; taps during one are ignored so it always finishes.
+  function play() {
+    if (reaction) return;
+    const next = REACTION_ORDER[taps.current++ % REACTION_ORDER.length];
+    setReaction(next);
+    navigator.vibrate?.(12);
+    timer.current = setTimeout(() => setReaction(null), REACTIONS[next]);
+  }
+
   return (
     <main className="flex flex-1 flex-col px-6 pt-[max(1.75rem,calc(env(safe-area-inset-top)+1rem))]">
       <div className="rise-in flex items-center justify-between">
-        <div className="flex items-center gap-2 text-moss">
-          <LeafMark className="size-7" />
-          <span className="font-display text-lg font-[500] tracking-tight text-ink">FloraScan</span>
+        <div className="flex items-center gap-2">
+          <Image src="/icons/icon.svg" alt="" width={28} height={28} unoptimized className="size-7" />
+          <span className="font-display text-lg font-[500] tracking-tight text-ink">Plantagotchi</span>
         </div>
         <span className="label-mono text-ink-soft/70">Colégio MAF</span>
       </div>
 
       <button
         type="button"
-        onClick={onCamera}
-        disabled={disabled}
-        aria-label="Tirar uma foto da planta"
-        className="pressable group rise-in relative mx-auto mt-6 aspect-[4/5] h-[clamp(10rem,33dvh,22rem)] overflow-hidden rounded-[50%_50%_2.25rem_2.25rem/40%_40%_2.25rem_2.25rem] bg-paper-deep ring-1 ring-ink/[0.05] disabled:opacity-60"
+        onClick={play}
+        aria-label="Brincar com o Plantagotchi"
+        className="pressable group rise-in relative mx-auto mt-6 aspect-[4/5] h-[clamp(10rem,33dvh,22rem)] overflow-hidden rounded-[50%_50%_2.25rem_2.25rem/40%_40%_2.25rem_2.25rem] bg-paper-deep ring-1 ring-ink/[0.05]"
         style={{ "--i": 1 } as CSSProperties}
       >
         <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_100%,rgb(154_174_143/0.35),transparent_70%)]" />
         {/* Dappled light, like sun moving through leaves. */}
         <div className="dapple absolute -inset-[20%] bg-[radial-gradient(35%_28%_at_35%_30%,rgb(228_236_180/0.45),transparent_70%),radial-gradient(30%_24%_at_70%_55%,rgb(228_236_180/0.3),transparent_70%)]" />
-        <div className="absolute inset-x-0 bottom-0 mx-auto h-[86%] transition-transform duration-700 ease-[var(--ease-organic)] group-hover:scale-[1.03]">
-          <BotanicalSprig className="size-full text-moss/80" />
+        <div className="absolute inset-x-[-2%] bottom-[5%] mx-auto h-[80%] transition-transform duration-700 ease-[var(--ease-organic)] group-hover:scale-[1.03]">
+          <Plantagotchi className="size-full" reaction={reaction} />
         </div>
         {POLLEN.map(([x, y, t, delay, dx, o], k) => (
           <span

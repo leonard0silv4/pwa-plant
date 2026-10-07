@@ -12,15 +12,13 @@ const svg = await fs.readFile(path.join(iconsDir, "icon.svg"));
 // Full-bleed square variant (no rounded corners) for maskable / apple icons:
 // the OS applies its own mask.
 const squareSvg = Buffer.from(svg.toString().replace('rx="116"', 'rx="0"'));
+// Maskable icons get cropped to a circle: shrink the mascot into the safe zone.
+const maskableSvg = Buffer.from(
+  squareSvg.toString().replace('translate(31 22) scale(2.25)', 'translate(76 71) scale(1.8)'),
+);
 
-async function png(source, size, file, { padding = 0 } = {}) {
-  const inner = Math.round(size * (1 - padding * 2));
-  let img = sharp(source, { density: 384 }).resize(inner, inner);
-  if (padding) {
-    img = sharp({
-      create: { width: size, height: size, channels: 4, background: "#2f4a35" },
-    }).composite([{ input: await img.png().toBuffer(), gravity: "center" }]);
-  }
+async function png(source, size, file) {
+  const img = sharp(source, { density: 384 }).resize(size, size);
   const buf = await img.png().toBuffer();
   if (file) await fs.writeFile(path.join(iconsDir, file), buf);
   console.log(`✓ ${file ?? "buffer"} (${size}x${size})`);
@@ -29,8 +27,8 @@ async function png(source, size, file, { padding = 0 } = {}) {
 
 await png(svg, 192, "icon-192.png");
 await png(svg, 512, "icon-512.png");
-await png(squareSvg, 192, "maskable-192.png", { padding: 0.1 });
-await png(squareSvg, 512, "maskable-512.png", { padding: 0.1 });
+await png(maskableSvg, 192, "maskable-192.png");
+await png(maskableSvg, 512, "maskable-512.png");
 await png(squareSvg, 180, "apple-touch-icon.png");
 
 // favicon.ico with embedded PNGs (16, 32, 48).

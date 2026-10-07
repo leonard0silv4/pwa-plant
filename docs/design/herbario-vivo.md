@@ -1,6 +1,6 @@
 # Herbário Vivo
 
-*Uma filosofia visual — direção para o FloraScan.*
+*Uma filosofia visual — direção para o Plantagotchi.*
 
 **Herbário Vivo** trata o vivo com o rigor do arquivo e o arquivo com a ternura do vivo. Nasce da prancha botânica do século XIX — a folha prensada, a legenda escrita a bico de pena, a régua de escala no rodapé — e lhe devolve a respiração. Cada composição deve parecer um documento de uma disciplina paciente: algo observado durante horas, medido, anotado e, ainda assim, comovente. O resultado tem que parecer meticulosamente elaborado, o produto de profunda experiência, como se uma mão de mestre tivesse revisado cada traço até a exaustão.
 

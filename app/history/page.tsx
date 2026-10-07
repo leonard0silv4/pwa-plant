@@ -23,7 +23,7 @@ export default function HistoryPage() {
 
   return (
     <main className="flex-1">
-      <title>Minhas plantas · FloraScan</title>
+      <title>Minhas plantas · Plantagotchi</title>
       <PageHeader eyebrow="Seu jardim" title="Minhas plantas">
         {items && items.length > 0 && (
           <p>

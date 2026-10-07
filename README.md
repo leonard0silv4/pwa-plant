@@ -1,10 +1,10 @@
-# FloraScan
+# Plantagotchi
 
 Identificador educativo de plantas com IA. Fotografe uma planta e descubra a espécie provável, os cuidados e possíveis sinais de que ela precisa de atenção.
 
 ## Sobre
 
-O FloraScan é uma ferramenta **gratuita e educativa**: sem contas, planos ou anúncios. Uma foto é otimizada no aparelho, enviada ao servidor e analisada por um modelo multimodal da OpenAI, que devolve uma resposta estruturada. O histórico fica salvo apenas no dispositivo do usuário.
+O Plantagotchi é uma ferramenta **gratuita e educativa**: sem contas, planos ou anúncios. Uma foto é otimizada no aparelho, enviada ao servidor e analisada por um modelo multimodal da OpenAI, que devolve uma resposta estruturada. O histórico fica salvo apenas no dispositivo do usuário.
 
 ## Funcionalidades
 

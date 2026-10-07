@@ -34,7 +34,7 @@ export default function AboutPage() {
     <main className="flex-1">
       <PageHeader eyebrow="Sobre o projeto" title={<>Seu guia de plantas, <em className="text-moss">com IA.</em></>}>
         <p>
-          O FloraScan é um app para aprender sobre plantas. Ele usa inteligência artificial (um programa de computador
+          O Plantagotchi é um app para aprender sobre plantas. Ele usa inteligência artificial (um programa de computador
           que aprendeu a reconhecer imagens) para descobrir que planta é e como cuidar dela.
         </p>
       </PageHeader>
