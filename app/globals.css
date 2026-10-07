@@ -776,6 +776,12 @@
 
 /* ---------- Page transitions (React <ViewTransition>) ---------- */
 
+/* Safari keeps looping composited animations live over the old snapshot, so the
+   mascot lingers after the page fades out. Freeze them while a transition runs. */
+:active-view-transition :is(.pg, .pg *, .dapple, .drift) {
+  animation-play-state: paused;
+}
+
 ::view-transition-old(.page-fade) {
   animation: page-out 180ms ease-in both;
 }
