@@ -776,12 +776,6 @@
 
 /* ---------- Page transitions (React <ViewTransition>) ---------- */
 
-/* The mascot arch leaves as its own snapshot: inside the page snapshot Safari
-   faded it out after the rest of the page. */
-::view-transition-old(.hero-out) {
-  animation: page-out 150ms ease-in both;
-}
-
 ::view-transition-old(.page-fade) {
   animation: page-out 180ms ease-in both;
 }
@@ -825,8 +819,7 @@
     stroke-dashoffset: 0;
   }
   ::view-transition-old(.page-fade),
-  ::view-transition-new(.page-fade),
-  ::view-transition-old(.hero-out) {
+  ::view-transition-new(.page-fade) {
     animation: none;
   }
 }

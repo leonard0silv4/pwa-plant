@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { History, Info, Sprout } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -16,9 +17,15 @@ const items = [
   { href: "/about", label: "Sobre", icon: Info, match: (p: string) => p.startsWith("/about") },
 ];
 
+const noSubscribe = () => () => {};
+// GestureEvent only exists in WebKit (Safari, and every browser on iOS).
+const isWebKit = () => "GestureEvent" in window;
+
 export function BottomNav() {
   const pathname = usePathname();
   const activeIndex = items.findIndex((item) => item.match(pathname));
+  const webkit = useSyncExternalStore(noSubscribe, isWebKit, () => false);
+  const types = webkit && pathname === "/" ? ["leave-home"] : undefined;
 
   return (
     <nav
@@ -44,6 +51,7 @@ export function BottomNav() {
                 <Link
                   href={href}
                   aria-current={active ? "page" : undefined}
+                  transitionTypes={types}
                   className={cn(
                     "pressable flex flex-col items-center gap-0.5 rounded-full py-1.5 text-[0.6875rem] font-medium tracking-wide transition-colors",
                     active ? "text-moss" : "text-ink-soft/70 hover:text-ink",

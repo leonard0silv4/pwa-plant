@@ -64,7 +64,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="paper-grain">
         <OfflineBanner />
         <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-xl flex-col pb-[calc(var(--nav-h)+var(--safe-bottom)+1rem)]">
-          <ViewTransition default="page-fade">{children}</ViewTransition>
+          {/* "leave-home" (Safari only, set by BottomNav) skips the fade: Safari lets the
+              animated mascot linger over the outgoing page. */}
+          <ViewTransition default={{ "leave-home": "none", default: "page-fade" }}>{children}</ViewTransition>
         </div>
         <BottomNav />
       </body>
