@@ -776,14 +776,10 @@
 
 /* ---------- Page transitions (React <ViewTransition>) ---------- */
 
-/* Safari (< 27) snapshots stale transforms from running accelerated transform
-   animations, so the mascot lags behind the page fade. Drop them while a
-   transition runs; they restart once it ends. */
-:active-view-transition :is(.pg, .pg *, .dapple, .drift) {
-  animation: none !important;
-}
-:active-view-transition .drift {
-  opacity: 0;
+/* The mascot arch leaves as its own snapshot: inside the page snapshot Safari
+   faded it out after the rest of the page. */
+::view-transition-old(.hero-out) {
+  animation: page-out 150ms ease-in both;
 }
 
 ::view-transition-old(.page-fade) {
@@ -829,7 +825,8 @@
     stroke-dashoffset: 0;
   }
   ::view-transition-old(.page-fade),
-  ::view-transition-new(.page-fade) {
+  ::view-transition-new(.page-fade),
+  ::view-transition-old(.hero-out) {
     animation: none;
   }
 }

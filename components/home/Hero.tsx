@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { ViewTransition, useEffect, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import { Camera, ImageIcon } from "lucide-react";
 import { InstallPrompt } from "@/components/InstallPrompt";
@@ -53,31 +53,33 @@ export function Hero({
         <span className="label-mono text-ink-soft/70">Colégio MAF</span>
       </div>
 
-      <button
-        type="button"
-        onClick={play}
-        aria-label="Brincar com o Plantagotchi"
-        className="pressable group rise-in relative mx-auto mt-6 aspect-[4/5] h-[clamp(10rem,33dvh,22rem)] overflow-hidden rounded-[50%_50%_2.25rem_2.25rem/40%_40%_2.25rem_2.25rem] bg-paper-deep ring-1 ring-ink/[0.05]"
-        style={{ "--i": 1 } as CSSProperties}
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_100%,rgb(154_174_143/0.35),transparent_70%)]" />
-        {/* Dappled light, like sun moving through leaves. */}
-        <div className="dapple absolute -inset-[20%] bg-[radial-gradient(35%_28%_at_35%_30%,rgb(228_236_180/0.45),transparent_70%),radial-gradient(30%_24%_at_70%_55%,rgb(228_236_180/0.3),transparent_70%)]" />
-        <div className="absolute inset-x-[-2%] bottom-[5%] mx-auto h-[80%] transition-transform duration-700 ease-[var(--ease-organic)] group-hover:scale-[1.03]">
-          <Plantagotchi className="size-full" reaction={reaction} />
-        </div>
-        {POLLEN.map(([x, y, t, delay, dx, o], k) => (
-          <span
-            key={k}
-            aria-hidden
-            className={`drift absolute size-1 rounded-full ${k % 2 ? "bg-sage" : "bg-moss/50"}`}
-            style={
-              { left: `${x}%`, bottom: `${y}%`, "--t": `${t}s`, "--delay": `${delay}s`, "--dx": `${dx}px`, "--o": o } as CSSProperties
-            }
-          />
-        ))}
-        <ViewfinderTicks className="text-ink/25" />
-      </button>
+      <ViewTransition exit="hero-out" default="none">
+        <button
+          type="button"
+          onClick={play}
+          aria-label="Brincar com o Plantagotchi"
+          className="pressable group rise-in relative mx-auto mt-6 aspect-[4/5] h-[clamp(10rem,33dvh,22rem)] overflow-hidden rounded-[50%_50%_2.25rem_2.25rem/40%_40%_2.25rem_2.25rem] bg-paper-deep ring-1 ring-ink/[0.05]"
+          style={{ "--i": 1 } as CSSProperties}
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_100%,rgb(154_174_143/0.35),transparent_70%)]" />
+          {/* Dappled light, like sun moving through leaves. */}
+          <div className="dapple absolute -inset-[20%] bg-[radial-gradient(35%_28%_at_35%_30%,rgb(228_236_180/0.45),transparent_70%),radial-gradient(30%_24%_at_70%_55%,rgb(228_236_180/0.3),transparent_70%)]" />
+          <div className="absolute inset-x-[-2%] bottom-[5%] mx-auto h-[80%] transition-transform duration-700 ease-[var(--ease-organic)] group-hover:scale-[1.03]">
+            <Plantagotchi className="size-full" reaction={reaction} />
+          </div>
+          {POLLEN.map(([x, y, t, delay, dx, o], k) => (
+            <span
+              key={k}
+              aria-hidden
+              className={`drift absolute size-1 rounded-full ${k % 2 ? "bg-sage" : "bg-moss/50"}`}
+              style={
+                { left: `${x}%`, bottom: `${y}%`, "--t": `${t}s`, "--delay": `${delay}s`, "--dx": `${dx}px`, "--o": o } as CSSProperties
+              }
+            />
+          ))}
+          <ViewfinderTicks className="text-ink/25" />
+        </button>
+      </ViewTransition>
 
       <div className="mt-7 text-center">
         <h1

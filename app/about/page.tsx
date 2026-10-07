@@ -79,6 +79,7 @@ export default function AboutPage() {
 
         <p className="px-2 pt-4 text-center text-sm text-ink-soft">Feito para a Feira de Ciências do Colégio MAF.</p>
         <p className="label-mono px-2 pt-2 pb-2 text-center text-ink-soft/60">De graça · Para aprender · Sem propaganda</p>
+        <p className="label-mono px-2 pb-2 text-center text-[0.625rem] text-ink-soft/40">v {process.env.NEXT_PUBLIC_BUILD}</p>
       </div>
     </main>
   );

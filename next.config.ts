@@ -25,6 +25,10 @@ const withSerwist = withSerwistInit({
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Shown on /about so a deploy can be confirmed from the phone.
+  env: {
+    NEXT_PUBLIC_BUILD: `${(process.env.VERCEL_GIT_COMMIT_SHA ?? "local").slice(0, 7)} · ${new Date().toISOString().slice(0, 16).replace("T", " ")} UTC`,
+  },
   // Dev runs on Turbopack (Serwist disabled); production builds use webpack.
   turbopack: {},
 };
